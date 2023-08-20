@@ -1,0 +1,44 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{%load crispy_forms_tags %}  
+{% block content %}  
+<!-- <style>
+	.sort{border: double;}  
+</style> -->
+<H5>Welcome  {{request.user}}</H5>
+ <form method="get"  label="Search" aria-placeholder="Search Products" >
+	 
+	{{ form|crispy }}<input type="submit" value="SEARCH" action="store"  ><BR><BR>
+  
+</form>
+ <div class="sort">
+<p>Sort by:
+    <a href="{% url 'store' %} ">Default</a> |
+    <a href="{% url 'store' %}?sort_by=price_lowest">Price: Low to High</a>|
+    <a href="{% url 'store' %}?sort_by=price_highest">Price: High to Low</a> 
+</p>
+</div> 
+
+	<div class="row">
+        {% for i in products %}
+		<div class="col-lg-4">
+        
+			<img class="thumbnail" src="{{i.imageURL}}">
+			<div class="box-element product">
+                
+               
+				<h6><strong>{{i.name}}</strong></h6>
+				<hr>
+                <button data-product="{{i.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+				 
+				<!-- <a class="btn btn-outline-success" href="#">View</a> -->
+				<h4 style="display: inline-block; float: right"><strong>${{i.price}}</strong></h4>
+
+			</div>
+           
+		</div>
+        {% endfor %}
+
+	 
+
+{% endblock content %}
